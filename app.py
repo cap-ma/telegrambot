@@ -11,11 +11,11 @@ API_TOKEN='5796481105:AAFk80b4qWB3ChrGpUTB0EU4tmITcrLP6c8'
 bot=Bot(token=API_TOKEN)
 dp=Dispatcher(bot)
 HEROKU_APP_NAME='downloadertiyuin'
-HOST=f'https://downloadertiyuin.herokuapp.com'
-PATH=f'/webhook/{API_TOKEN}'
-URL=f'{HOST}{PATH}'
+WEB_HOOK_HOST=f'https://downloadertiyuin.herokuapp.com'
+WEB_HOOK_PATH=f'/webhook/{API_TOKEN}'
+WEB_HOOK_URL=f'{WEB_HOOK_HOST}{WEB_HOOK_PATH}'
 WEB_HOST='0.0.0.0'
-PORT=8000
+WEB_PORT=8000
 
 
 
@@ -70,7 +70,7 @@ async def download_youtube_video(messege:types.Message):
 
     
 async def on_startup(dispatcher):
-    await bot.set_webhook(URL, drop_pending_updates=True)
+    await bot.set_webhook(WEB_HOOK_URL, drop_pending_updates=True)
 
 
 async def on_shutdown(dispatcher):
@@ -81,12 +81,12 @@ async def on_shutdown(dispatcher):
 if __name__=='__main__':
     start_webhook(
         dispatcher=dp,
-        webhook_path=PATH,
+        webhook_path=WEB_HOOK_PATH,
         skip_updates=True,
         on_startup=on_startup,
         on_shutdown=on_shutdown,
-        host=HOST,
-        port=PORT,
+        host=WEB_HOST,
+        port=WEB_PORT,
     )
     
 
